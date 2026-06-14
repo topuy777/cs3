@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP DASHBOARD | CAKRA DARMA</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+    --pink:#ff00c8;
+    --gold:#ffcc33;
+    --bg:#0b0012;
+    --glass:rgba(255,255,255,.06);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Outfit',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    overflow-x:hidden;
+    background:
+    radial-gradient(circle at top left,#ff00c8 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#ffcc33 0%,transparent 35%),
+    linear-gradient(135deg,#050008,#0b0012,#12001d);
+    color:#fff;
+}
+
+/* VIP Glow */
+body::before,
+body::after{
+    content:'';
+    position:fixed;
+    width:550px;
+    height:550px;
+    filter:blur(220px);
+    opacity:.18;
+    pointer-events:none;
+}
+
+body::before{
+    background:#ff00c8;
+    top:-250px;
+    left:-150px;
+}
+
+body::after{
+    background:#ffcc33;
+    bottom:-250px;
+    right:-150px;
+}
+
+.grid-container{
+    width:100%;
+    max-width:850px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    z-index:1;
+}
+
+.header-title{
+    grid-column:span 2;
+    text-align:center;
+    font-size:44px;
+    font-weight:900;
+    letter-spacing:4px;
+
+    text-shadow:
+    0 0 10px var(--pink),
+    0 0 25px var(--pink),
+    0 0 40px var(--gold);
+
+    animation:glow 2.5s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px var(--pink),0 0 20px var(--gold);
+    }
+    to{
+        text-shadow:0 0 20px var(--pink),0 0 50px var(--gold);
+    }
+}
+
+/* WRAPPER FIX VIP */
+.menu-wrapper{
+    grid-column:span 2;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.btn-card{
+    position:relative;
+    overflow:hidden;
+    background:var(--glass);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:28px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    transition:.3s ease;
+}
+
+.btn-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--pink);
+    box-shadow:0 0 25px rgba(255,0,200,.4);
+}
+
+/* ICON */
+.btn-card i{
+    font-size:36px;
+    color:var(--gold);
+    text-shadow:0 0 10px var(--gold);
+}
+
+/* RIPPLE EFFECT */
+.ripple{
+    position:absolute;
+    border-radius:50%;
+    transform:scale(0);
+    animation:ripple .6s linear;
+    background:rgba(255,255,255,.4);
+}
+
+@keyframes ripple{
+    to{
+        transform:scale(4);
+        opacity:0;
+    }
+}
+
+/* SUBMENU VIP FIX */
+.submenu{
+    max-height:0;
+    overflow:hidden;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:0 15px;
+    opacity:0;
+    transform:translateY(-10px);
+    transition:.4s ease;
+}
+
+.menu-wrapper.open .submenu{
+    max-height:300px;
+    padding:15px;
+    opacity:1;
+    transform:translateY(0);
+}
+
+.submenu a{
+    text-decoration:none;
+    color:#fff;
+    padding:10px 16px;
+    border-radius:12px;
+    background:rgba(255,255,255,.05);
+    transition:.3s;
+    font-size:13px;
+    font-weight:600;
+}
+
+.submenu a:hover{
+    background:var(--pink);
+    box-shadow:0 0 15px var(--pink);
+}
+
+.footer{
+    grid-column:span 2;
+    text-align:center;
+    font-size:12px;
+    opacity:.7;
+    letter-spacing:2px;
+    margin-top:10px;
+}
+
+@media(max-width:700px){
+    .grid-container{
+        grid-template-columns:1fr;
+    }
+    .menu-wrapper,.header-title,.footer{
+        grid-column:span 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <div class="header-title">VIP DASHBOARD</div>
+
+    <!-- MENU LAPORAN -->
+    <div class="menu-wrapper">
+
+        <div class="btn-card" onclick="toggleMenu(this)">
+            <i class="fas fa-chart-pie"></i>
+            <span>LAPORAN UTAMA</span>
+        </div>
+
+        <div class="submenu">
+            <a href="#"><i class="fas fa-user-edit"></i> Ganti Data</a>
+            <a href="#"><i class="fas fa-user-lock"></i> Lock</a>
+            <a href="#"><i class="fas fa-font"></i> Spasi</a>
+            <a href="#"><i class="fas fa-shield-halved"></i> Dual ID</a>
+        </div>
+
+    </div>
+
+    <div class="btn-card" onclick="window.open('#','_blank')">
+        <i class="fas fa-crown"></i>
+        <span>BONUS VIP</span>
+    </div>
+
+    <div class="btn-card" onclick="window.open('#','_blank')">
+        <i class="fas fa-database"></i>
+        <span>DATA CRM</span>
+    </div>
+
+    <div class="btn-card" onclick="window.open('#','_blank')">
+        <i class="fas fa-chart-line"></i>
+        <span>REKAPAN</span>
+    </div>
+
+    <div class="btn-card" onclick="window.open('#','_blank')">
+        <i class="fas fa-building-columns"></i>
+        <span>BUKTI STRUK BNI</span>
+    </div>
+
+    <div class="btn-card" onclick="window.open('#','_blank')">
+        <i class="fas fa-calculator"></i>
+        <span>RUMUS WD</span>
+    </div>
+
+    <div class="footer">
+        VIP SYSTEM • CAKRA DARMA
+    </div>
+
+</div>
+
+<script>
+function toggleMenu(el){
+    el.parentElement.classList.toggle('open');
+}
+
+/* Ripple Effect */
+document.querySelectorAll('.btn-card').forEach(btn=>{
+    btn.addEventListener('click',function(e){
+        let ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+
+        let rect = this.getBoundingClientRect();
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        ripple.style.top = (e.clientY - rect.top) + 'px';
+
+        this.appendChild(ripple);
+
+        setTimeout(()=>ripple.remove(),600);
+    });
+});
+</script>
+
+</body>
+</html>
